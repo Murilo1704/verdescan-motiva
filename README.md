@@ -95,7 +95,7 @@ O protótipo foi desenvolvido utilizando Figma.
 
 ## Link do Figma
 
-COLE_AQUI_O_LINK_DO_FIGMA
+https://www.figma.com/make/BzuZcpHvxYYCuGRBAS6Ios/VerdeScan-Motiva-prototype--c%C3%B3pia-?t=SNWprQot3YSWh1IY-1
 
 ---
 
