@@ -1,115 +1,80 @@
-# 🌿 VerdeScan Motiva
+# VerdeScan Motiva - Sprint 2
 
-Aplicativo mobile desenvolvido como MVP acadêmico para o desafio da Motiva, com foco no monitoramento e registro de ocorrências relacionadas à vegetação em rodovias.
+## Sobre o projeto
 
----
+O VerdeScan Motiva é um aplicativo desenvolvido em React Native com Expo para registrar e acompanhar ocorrências de vegetação em rodovias.
 
-# 📌 Sobre o projeto
+Nesta Sprint 2, o objetivo foi transformar o protótipo definido na Sprint 1 em um aplicativo funcional, utilizando dados mockados, TypeScript, componentes, telas separadas e gerenciamento de estado.
 
-O VerdeScan Motiva foi idealizado para auxiliar equipes operacionais no monitoramento de vegetação em rodovias, substituindo processos manuais e pouco organizados por uma solução mobile simples, visual e padronizada.
-
-O aplicativo permite registrar ocorrências operacionais contendo informações como:
-
-- Rodovia
-- KM do trecho
-- Equipe responsável
-- Placa do veículo
-- Classificação de risco
-- Tipo da ocorrência
-- Observações
-
-O projeto foi desenvolvido como protótipo acadêmico da Sprint 1, priorizando:
-- visão do produto
-- fluxo operacional
-- experiência mobile
-- organização das informações
+O app simula o fluxo de trabalho de uma equipe que registra ocorrências de vegetação em trechos rodoviários, classificando cada ocorrência por nível de risco.
 
 ---
 
-# 🚧 Problema identificado
+## Objetivo da Sprint 2
 
-O monitoramento da vegetação em rodovias ainda pode depender de inspeções manuais e registros pouco padronizados, dificultando:
+A Sprint 2 tem como foco a construção de um aplicativo funcional rodando no Expo.
 
-- identificação rápida de trechos críticos
-- priorização de manutenção
-- histórico operacional
-- rastreabilidade das ocorrências
-- acompanhamento das equipes em campo
+O projeto atende aos seguintes pontos:
 
----
-
-# 💡 Solução proposta
-
-O VerdeScan Motiva propõe um aplicativo mobile utilizado por operadores e supervisores para registrar e acompanhar ocorrências relacionadas à vegetação nas rodovias.
-
-A proposta futura do projeto inclui:
-- veículos operacionais com câmeras
-- visão computacional
-- integração com APIs climáticas
-- previsão de crescimento da vegetação
-- análise inteligente de risco
-
-Nesta Sprint 1, o foco foi apenas no MVP visual e navegável.
-
----
-
-# 👥 Usuários do sistema
-
-## Operador de campo
-
-Responsável por:
-- registrar ocorrências
-- preencher informações da vistoria
-- classificar o risco
-- acompanhar registros
-
-## Supervisor operacional
-
-Responsável por:
-- visualizar ocorrências
-- acompanhar riscos
-- priorizar manutenção
-- monitorar histórico
-
----
-
-# 📱 Funcionalidades MVP
-
-O protótipo contém:
-
-- Tela de login
-- Dashboard operacional
 - Lista de ocorrências
 - Cadastro de nova ocorrência
-- Tela de detalhes da ocorrência
-- Classificação de risco:
-  - Baixo
-  - Médio
-  - Alto
+- Detalhe da ocorrência
+- Uso de TypeScript
+- Uso de estado com `useState`
+- Dados mockados
+- Componentização
+- Organização em pastas
+- Persistência local com AsyncStorage como evolução
 
 ---
 
-# 🎨 Protótipo navegável
+## Funcionalidades do aplicativo
 
-O protótipo foi desenvolvido utilizando Figma.
+O aplicativo permite:
 
-## Link do Figma
+1. Visualizar uma lista de ocorrências cadastradas.
+2. Ver a quantidade de ocorrências por nível de risco:
+   - Baixo
+   - Médio
+   - Alto
+3. Cadastrar uma nova ocorrência.
+4. Informar rodovia, quilômetro, equipe responsável, data, descrição e risco.
+5. Salvar a ocorrência no estado da aplicação.
+6. Exibir a nova ocorrência na lista.
+7. Abrir uma ocorrência para visualizar seus detalhes.
+8. Manter as ocorrências salvas mesmo após recarregar o app, usando AsyncStorage.
 
-https://small-camp-65112245.figma.site
 ---
 
-# ⚙️ Estrutura técnica
-
-Tecnologias utilizadas:
+## Tecnologias utilizadas
 
 - React Native
 - Expo
 - TypeScript
+- useState
+- useEffect
+- AsyncStorage
+- Dados mockados
 
-Estrutura inicial:
+---
 
-```bash
+## Estrutura do projeto
+
+```txt
 src/
-  screens/
   components/
+    OcorrenciaCard.tsx
+
+  data/
+    mockOcorrencias.ts
+
+  screens/
+    ListaOcorrenciasScreen.tsx
+    CadastroOcorrenciaScreen.tsx
+    DetalheOcorrenciaScreen.tsx
+
   types/
+    ocorrencia.ts
+
+App.tsx
+README.md
