@@ -1,7 +1,6 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ocorrencia } from "../types/ocorrencia";
-import { OcorrenciaCard } from "../components/OcorrenciaCard";
+import OcorrenciaCard from "../components/OcorrenciaCard";
 
 type Props = {
   ocorrencias: Ocorrencia[];
@@ -14,47 +13,16 @@ export function ListaOcorrenciasScreen({
   onNovaOcorrencia,
   onSelecionarOcorrencia,
 }: Props) {
-  const totalBaixo = ocorrencias.filter((item) => item.risco === "baixo").length;
-  const totalMedio = ocorrencias.filter((item) => item.risco === "medio").length;
-  const totalAlto = ocorrencias.filter((item) => item.risco === "alto").length;
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.marca}>VERDESCAN MOTIVA</Text>
-        <Text style={styles.titulo}>Ocorrências de vegetação</Text>
-        <Text style={styles.subtitulo}>
-          Registros simulados para priorização de manutenção
-        </Text>
+        <Text style={styles.titulo}>VerdeScan Motiva</Text>
+        <Text style={styles.subtitulo}>Ocorrências de vegetação</Text>
       </View>
 
-      <View style={styles.resumo}>
-        <View style={styles.resumoCard}>
-          <Text style={[styles.numeroResumo, { color: "#159447" }]}>
-            {totalBaixo}
-          </Text>
-          <Text style={styles.textoResumo}>Baixo</Text>
-        </View>
-
-        <View style={styles.resumoCard}>
-          <Text style={[styles.numeroResumo, { color: "#d4a106" }]}>
-            {totalMedio}
-          </Text>
-          <Text style={styles.textoResumo}>Médio</Text>
-        </View>
-
-        <View style={styles.resumoCard}>
-          <Text style={[styles.numeroResumo, { color: "#d93636" }]}>
-            {totalAlto}
-          </Text>
-          <Text style={styles.textoResumo}>Alto</Text>
-        </View>
-      </View>
-
-      <View style={styles.linhaTitulo}>
-        <Text style={styles.secaoTitulo}>Lista de ocorrências</Text>
-        <Text style={styles.total}>{ocorrencias.length} registros</Text>
-      </View>
+      <TouchableOpacity style={styles.botaoNovo} onPress={onNovaOcorrencia}>
+        <Text style={styles.textoBotaoNovo}>Cadastrar ocorrência</Text>
+      </TouchableOpacity>
 
       <FlatList
         data={ocorrencias}
@@ -62,15 +30,14 @@ export function ListaOcorrenciasScreen({
         renderItem={({ item }) => (
           <OcorrenciaCard
             ocorrencia={item}
-            onPress={onSelecionarOcorrencia}
+            onPress={() => onSelecionarOcorrencia(item)}
           />
         )}
         contentContainerStyle={styles.lista}
+        ListEmptyComponent={
+          <Text style={styles.listaVazia}>Nenhuma ocorrência cadastrada.</Text>
+        }
       />
-
-      <Pressable style={styles.botao} onPress={onNovaOcorrencia}>
-        <Text style={styles.botaoTexto}>Nova ocorrência</Text>
-      </Pressable>
     </View>
   );
 }
@@ -81,86 +48,36 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#064e2f",
-    paddingHorizontal: 20,
-    paddingTop: 28,
-    paddingBottom: 26,
-  },
-  marca: {
-    color: "#b8f5c9",
-    fontSize: 12,
-    fontWeight: "700",
-    letterSpacing: 1.5,
-    marginBottom: 12,
+    padding: 20,
+    paddingTop: 32,
   },
   titulo: {
     color: "#ffffff",
     fontSize: 24,
-    fontWeight: "800",
+    fontWeight: "bold",
   },
   subtitulo: {
-    color: "#d5f5de",
-    fontSize: 14,
-    marginTop: 6,
-  },
-  resumo: {
-    flexDirection: "row",
-    paddingHorizontal: 16,
-    marginTop: -18,
-    gap: 10,
-  },
-  resumoCard: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    borderRadius: 14,
-    paddingVertical: 14,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#d5e5d6",
-  },
-  numeroResumo: {
-    fontSize: 26,
-    fontWeight: "800",
-  },
-  textoResumo: {
-    color: "#365243",
-    fontSize: 12,
+    color: "#d1fae5",
     marginTop: 4,
-    textTransform: "uppercase",
   },
-  linhaTitulo: {
-    flexDirection: "row",
+  botaoNovo: {
+    backgroundColor: "#16a34a",
+    margin: 16,
+    padding: 14,
+    borderRadius: 10,
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    marginTop: 24,
-    marginBottom: 8,
   },
-  secaoTitulo: {
-    color: "#082f1d",
-    fontSize: 18,
-    fontWeight: "800",
-  },
-  total: {
-    color: "#587064",
-    fontSize: 13,
+  textoBotaoNovo: {
+    color: "#ffffff",
+    fontWeight: "bold",
   },
   lista: {
     paddingHorizontal: 16,
-    paddingBottom: 92,
+    paddingBottom: 24,
   },
-  botao: {
-    position: "absolute",
-    left: 16,
-    right: 16,
-    bottom: 20,
-    backgroundColor: "#058f35",
-    borderRadius: 16,
-    paddingVertical: 16,
-    alignItems: "center",
-  },
-  botaoTexto: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "800",
+  listaVazia: {
+    textAlign: "center",
+    color: "#6b7280",
+    marginTop: 32,
   },
 });
