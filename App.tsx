@@ -36,10 +36,7 @@ export default function App() {
 
   async function salvarListaNoStorage(listaAtualizada: Ocorrencia[]) {
     try {
-      await AsyncStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(listaAtualizada)
-      );
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(listaAtualizada));
     } catch (error) {
       console.log("Erro ao salvar ocorrências:", error);
     }

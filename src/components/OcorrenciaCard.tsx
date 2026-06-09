@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ocorrencia } from "../types/ocorrencia";
 
 type Props = {
@@ -6,18 +6,18 @@ type Props = {
   onPress: () => void;
 };
 
-export default function OcorrenciaCard({ ocorrencia, onPress }: Props) {
+export function OcorrenciaCard({ ocorrencia, onPress }: Props) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <View style={styles.header}>
+      <View>
+        <Text style={styles.local}>{ocorrencia.local}</Text>
         <Text style={styles.descricao}>{ocorrencia.descricao}</Text>
-        <Text style={[styles.risco, styles[ocorrencia.risco]]}>
-          {ocorrencia.risco.toUpperCase()}
-        </Text>
+        <Text style={styles.data}>Data: {ocorrencia.data}</Text>
       </View>
 
-      <Text style={styles.local}>{ocorrencia.local}</Text>
-      <Text style={styles.data}>{ocorrencia.data}</Text>
+      <Text style={[styles.risco, styles[ocorrencia.risco]]}>
+        {ocorrencia.risco}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -25,50 +25,47 @@ export default function OcorrenciaCard({ ocorrencia, onPress }: Props) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#ffffff",
-    padding: 16,
-    borderRadius: 10,
-    marginBottom: 12,
+    borderRadius: 14,
+    padding: 18,
+    marginBottom: 14,
     borderWidth: 1,
-    borderColor: "#dddddd",
-  },
-  header: {
+    borderColor: "#d7e6d7",
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: 10,
-  },
-  descricao: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#1f2937",
-  },
-  risco: {
-    fontSize: 12,
-    fontWeight: "bold",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-    overflow: "hidden",
-  },
-  baixo: {
-    backgroundColor: "#dcfce7",
-    color: "#166534",
-  },
-  medio: {
-    backgroundColor: "#fef9c3",
-    color: "#854d0e",
-  },
-  alto: {
-    backgroundColor: "#fee2e2",
-    color: "#991b1b",
+    gap: 12,
   },
   local: {
-    marginTop: 8,
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#022c22",
+  },
+  descricao: {
+    marginTop: 10,
     color: "#374151",
+    fontSize: 15,
   },
   data: {
-    marginTop: 4,
+    marginTop: 8,
     color: "#6b7280",
-    fontSize: 12,
+    fontSize: 13,
+  },
+  risco: {
+    color: "#ffffff",
+    fontWeight: "bold",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    alignSelf: "flex-start",
+    textTransform: "capitalize",
+  },
+  baixo: {
+    backgroundColor: "#16a34a",
+  },
+  medio: {
+    backgroundColor: "#d99a00",
+  },
+  alto: {
+    backgroundColor: "#dc2626",
   },
 });
+

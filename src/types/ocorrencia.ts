@@ -6,4 +6,8 @@ export type Ocorrencia = {
   local: string;
   risco: Risco;
   data: string;
+  equipe: string;
+  tipoIntervencao: string;
+  status: string;
+  observacao: string;
 };

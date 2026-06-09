@@ -9,9 +9,9 @@ type Props = {
 export function DetalheOcorrenciaScreen({ ocorrencia, onVoltar }: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Detalhe da ocorrência</Text>
-
       <View style={styles.card}>
+        <Text style={styles.titulo}>Detalhe da ocorrência</Text>
+
         <Text style={styles.local}>{ocorrencia.local}</Text>
 
         <Text style={styles.label}>Descrição</Text>
@@ -25,19 +25,33 @@ export function DetalheOcorrenciaScreen({ ocorrencia, onVoltar }: Props) {
         <Text style={styles.label}>Data</Text>
         <Text style={styles.texto}>{ocorrencia.data}</Text>
 
+        <Text style={styles.label}>Equipe responsável</Text>
+        <Text style={styles.texto}>{ocorrencia.equipe}</Text>
+
+        <Text style={styles.label}>Tipo de intervenção</Text>
+        <Text style={styles.texto}>{ocorrencia.tipoIntervencao}</Text>
+
+        <Text style={styles.label}>Status</Text>
+        <Text style={styles.texto}>{ocorrencia.status}</Text>
+
+        <Text style={styles.label}>Observação</Text>
+        <Text style={styles.texto}>
+          {ocorrencia.observacao || "Sem observações adicionais."}
+        </Text>
+
         <Text style={styles.label}>Prioridade sugerida</Text>
         <Text style={styles.texto}>
           {ocorrencia.risco === "alto"
-            ? "Enviar equipe de roçada com prioridade máxima."
+            ? "Enviar equipe com prioridade máxima."
             : ocorrencia.risco === "medio"
             ? "Agendar manutenção preventiva."
             : "Manter monitoramento do trecho."}
         </Text>
-      </View>
 
-      <TouchableOpacity style={styles.botaoVoltar} onPress={onVoltar}>
-        <Text style={styles.textoBotao}>Voltar para lista</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.botaoVoltar} onPress={onVoltar}>
+          <Text style={styles.textoBotao}>Voltar para lista</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -45,21 +59,24 @@ export function DetalheOcorrenciaScreen({ ocorrencia, onVoltar }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "#eef7ef",
+    padding: 20,
+    alignItems: "center",
+  },
+  card: {
+    width: "100%",
+    maxWidth: 760,
+    backgroundColor: "#ffffff",
+    padding: 24,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: "#d4e4d4",
   },
   titulo: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: "bold",
     color: "#064e2f",
     marginBottom: 20,
-  },
-  card: {
-    backgroundColor: "#fff",
-    padding: 18,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: "#d4e4d4",
   },
   local: {
     fontSize: 22,
@@ -79,7 +96,7 @@ const styles = StyleSheet.create({
   },
   risco: {
     alignSelf: "flex-start",
-    color: "#fff",
+    color: "#ffffff",
     fontWeight: "bold",
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -99,10 +116,11 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 24,
   },
   textoBotao: {
-    color: "#fff",
+    color: "#ffffff",
     fontWeight: "bold",
   },
 });
+
