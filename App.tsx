@@ -70,6 +70,18 @@ export default function App() {
     setTelaAtual("lista");
   }
 
+  function apagarOcorrencia(id: number) {
+    const listaAtualizada = ocorrencias.filter((item) => item.id !== id);
+
+    setOcorrencias(listaAtualizada);
+    salvarListaNoStorage(listaAtualizada);
+
+    if (ocorrenciaSelecionada?.id === id) {
+      setOcorrenciaSelecionada(null);
+      setTelaAtual("lista");
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#064e2f" />
@@ -79,6 +91,7 @@ export default function App() {
           ocorrencias={ocorrencias}
           onNovaOcorrencia={() => setTelaAtual("cadastro")}
           onSelecionarOcorrencia={abrirDetalhe}
+          onApagarOcorrencia={apagarOcorrencia}
         />
       )}
 
@@ -105,3 +118,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#eef7ef",
   },
 });
+

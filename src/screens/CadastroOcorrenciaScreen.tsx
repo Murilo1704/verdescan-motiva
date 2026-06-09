@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,23 +17,27 @@ type Props = {
 export function CadastroOcorrenciaScreen({ onVoltar, onSalvar }: Props) {
   const [descricao, setDescricao] = useState("");
   const [local, setLocal] = useState("");
+  const [data, setData] = useState("");
   const [equipe, setEquipe] = useState("");
   const [tipoIntervencao, setTipoIntervencao] = useState("");
-  const [status, setStatus] = useState("Pendente");
+  const [status, setStatus] = useState("");
   const [observacao, setObservacao] = useState("");
   const [risco, setRisco] = useState<Risco>("baixo");
+  const [mensagemErro, setMensagemErro] = useState("");
 
   function salvar() {
-    if (
-      descricao.trim() === "" ||
-      local.trim() === "" ||
-      equipe.trim() === "" ||
-      tipoIntervencao.trim() === ""
-    ) {
-      Alert.alert(
-        "Atenção",
-        "Preencha descrição, local, equipe e tipo de intervenção."
-      );
+    const camposFaltando: string[] = [];
+
+    if (descricao.trim() === "") camposFaltando.push("descrição");
+    if (local.trim() === "") camposFaltando.push("local");
+    if (data.trim() === "") camposFaltando.push("data da ocorrência");
+    if (equipe.trim() === "") camposFaltando.push("equipe responsável");
+    if (tipoIntervencao.trim() === "") camposFaltando.push("tipo de intervenção");
+    if (status.trim() === "") camposFaltando.push("status");
+    if (observacao.trim() === "") camposFaltando.push("observação");
+
+    if (camposFaltando.length > 0) {
+      setMensagemErro("Falta preencher: " + camposFaltando.join(", ") + ".");
       return;
     }
 
@@ -42,7 +45,7 @@ export function CadastroOcorrenciaScreen({ onVoltar, onSalvar }: Props) {
       descricao,
       local,
       risco,
-      data: new Date().toLocaleDateString("pt-BR"),
+      data,
       equipe,
       tipoIntervencao,
       status,
@@ -51,17 +54,25 @@ export function CadastroOcorrenciaScreen({ onVoltar, onSalvar }: Props) {
 
     setDescricao("");
     setLocal("");
+    setData("");
     setEquipe("");
     setTipoIntervencao("");
-    setStatus("Pendente");
+    setStatus("");
     setObservacao("");
     setRisco("baixo");
+    setMensagemErro("");
   }
 
   return (
     <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
       <View style={styles.card}>
         <Text style={styles.titulo}>Cadastrar ocorrência</Text>
+
+        {mensagemErro !== "" && (
+          <View style={styles.caixaErro}>
+            <Text style={styles.textoErro}>{mensagemErro}</Text>
+          </View>
+        )}
 
         <Text style={styles.label}>Descrição</Text>
         <TextInput
@@ -77,6 +88,14 @@ export function CadastroOcorrenciaScreen({ onVoltar, onSalvar }: Props) {
           placeholder="Ex: SP-280 - KM 42"
           value={local}
           onChangeText={setLocal}
+        />
+
+        <Text style={styles.label}>Data da ocorrência</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Ex: 09/06/2026"
+          value={data}
+          onChangeText={setData}
         />
 
         <Text style={styles.label}>Equipe responsável</Text>
@@ -155,15 +174,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#eef7ef",
   },
   scrollContent: {
-    padding: 20,
+    padding: 24,
+    paddingTop: 44,
     alignItems: "center",
-    paddingBottom: 50,
+    paddingBottom: 60,
   },
   card: {
     width: "100%",
     maxWidth: 760,
     backgroundColor: "#ffffff",
-    padding: 24,
+    padding: 26,
     borderRadius: 18,
     borderWidth: 1,
     borderColor: "#d4e4d4",
@@ -172,7 +192,19 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#064e2f",
-    marginBottom: 24,
+    marginBottom: 22,
+  },
+  caixaErro: {
+    backgroundColor: "#fee2e2",
+    borderWidth: 1,
+    borderColor: "#ef4444",
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 18,
+  },
+  textoErro: {
+    color: "#991b1b",
+    fontWeight: "bold",
   },
   label: {
     fontWeight: "bold",

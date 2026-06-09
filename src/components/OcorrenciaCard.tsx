@@ -4,15 +4,32 @@ import { Ocorrencia } from "../types/ocorrencia";
 type Props = {
   ocorrencia: Ocorrencia;
   onPress: () => void;
+  onApagar: () => void;
 };
 
-export function OcorrenciaCard({ ocorrencia, onPress }: Props) {
+export function OcorrenciaCard({ ocorrencia, onPress, onApagar }: Props) {
+  function apagar(event: any) {
+    event.stopPropagation?.();
+    onApagar();
+  }
+
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
-      <View>
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
+      <View style={styles.conteudo}>
         <Text style={styles.local}>{ocorrencia.local}</Text>
         <Text style={styles.descricao}>{ocorrencia.descricao}</Text>
-        <Text style={styles.data}>Data: {ocorrencia.data}</Text>
+
+        <View style={styles.linhaInfo}>
+          <Text style={styles.info}>Data: {ocorrencia.data}</Text>
+          <Text style={styles.info}>Status: {ocorrencia.status}</Text>
+        </View>
+
+        <Text style={styles.info}>Equipe: {ocorrencia.equipe}</Text>
+        <Text style={styles.info}>Intervenção: {ocorrencia.tipoIntervencao}</Text>
+
+        <TouchableOpacity style={styles.botaoApagar} onPress={apagar}>
+          <Text style={styles.textoApagar}>Apagar ocorrência</Text>
+        </TouchableOpacity>
       </View>
 
       <Text style={[styles.risco, styles[ocorrencia.risco]]}>
@@ -34,6 +51,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 12,
   },
+  conteudo: {
+    flex: 1,
+  },
   local: {
     fontSize: 18,
     fontWeight: "bold",
@@ -44,9 +64,15 @@ const styles = StyleSheet.create({
     color: "#374151",
     fontSize: 15,
   },
-  data: {
+  linhaInfo: {
+    flexDirection: "row",
+    gap: 16,
+    flexWrap: "wrap",
     marginTop: 8,
-    color: "#6b7280",
+  },
+  info: {
+    marginTop: 6,
+    color: "#4b5563",
     fontSize: 13,
   },
   risco: {
@@ -66,6 +92,18 @@ const styles = StyleSheet.create({
   },
   alto: {
     backgroundColor: "#dc2626",
+  },
+  botaoApagar: {
+    marginTop: 12,
+    backgroundColor: "#fee2e2",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    alignSelf: "flex-start",
+  },
+  textoApagar: {
+    color: "#991b1b",
+    fontWeight: "bold",
   },
 });
 

@@ -6,12 +6,14 @@ type Props = {
   ocorrencias: Ocorrencia[];
   onNovaOcorrencia: () => void;
   onSelecionarOcorrencia: (ocorrencia: Ocorrencia) => void;
+  onApagarOcorrencia: (id: number) => void;
 };
 
 export function ListaOcorrenciasScreen({
   ocorrencias,
   onNovaOcorrencia,
   onSelecionarOcorrencia,
+  onApagarOcorrencia,
 }: Props) {
   const totalBaixo = ocorrencias.filter((item) => item.risco === "baixo").length;
   const totalMedio = ocorrencias.filter((item) => item.risco === "medio").length;
@@ -56,9 +58,13 @@ export function ListaOcorrenciasScreen({
           <OcorrenciaCard
             ocorrencia={item}
             onPress={() => onSelecionarOcorrencia(item)}
+            onApagar={() => onApagarOcorrencia(item.id)}
           />
         )}
         contentContainerStyle={styles.lista}
+        ListEmptyComponent={
+          <Text style={styles.listaVazia}>Nenhuma ocorrência cadastrada.</Text>
+        }
       />
 
       <TouchableOpacity style={styles.botaoNovo} onPress={onNovaOcorrencia}>
@@ -140,6 +146,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 100,
   },
+  listaVazia: {
+    textAlign: "center",
+    color: "#4b5563",
+    marginTop: 30,
+  },
   botaoNovo: {
     backgroundColor: "#059669",
     padding: 18,
@@ -153,4 +164,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
