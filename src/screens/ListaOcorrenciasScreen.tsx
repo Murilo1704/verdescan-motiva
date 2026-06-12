@@ -7,6 +7,7 @@ type Props = {
   onNovaOcorrencia: () => void;
   onSelecionarOcorrencia: (ocorrencia: Ocorrencia) => void;
   onApagarOcorrencia: (id: number) => void;
+  onLogout: () => void;
 };
 
 export function ListaOcorrenciasScreen({
@@ -14,6 +15,7 @@ export function ListaOcorrenciasScreen({
   onNovaOcorrencia,
   onSelecionarOcorrencia,
   onApagarOcorrencia,
+  onLogout,
 }: Props) {
   const totalBaixo = ocorrencias.filter((item) => item.risco === "baixo").length;
   const totalMedio = ocorrencias.filter((item) => item.risco === "medio").length;
@@ -22,7 +24,14 @@ export function ListaOcorrenciasScreen({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.marca}>VERDESCAN MOTIVA</Text>
+        <View style={styles.topo}>
+          <Text style={styles.marca}>VERDESCAN MOTIVA</Text>
+
+          <TouchableOpacity style={styles.botaoSair} onPress={onLogout}>
+            <Text style={styles.textoSair}>Sair</Text>
+          </TouchableOpacity>
+        </View>
+
         <Text style={styles.titulo}>Ocorrências de vegetação</Text>
         <Text style={styles.subtitulo}>
           Registros simulados para priorização de manutenção
@@ -84,10 +93,25 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingTop: 36,
   },
+  topo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   marca: {
     color: "#d1fae5",
     fontWeight: "bold",
     letterSpacing: 2,
+  },
+  botaoSair: {
+    backgroundColor: "#dc2626",
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  textoSair: {
+    color: "#ffffff",
+    fontWeight: "bold",
   },
   titulo: {
     color: "#ffffff",
@@ -164,3 +188,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+

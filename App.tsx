@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Ocorrencia } from "./src/types/ocorrencia";
 import { mockOcorrencias } from "./src/data/mockOcorrencias";
+import { LoginScreen } from "./src/screens/LoginScreen";
 import { ListaOcorrenciasScreen } from "./src/screens/ListaOcorrenciasScreen";
 import { CadastroOcorrenciaScreen } from "./src/screens/CadastroOcorrenciaScreen";
 import { DetalheOcorrenciaScreen } from "./src/screens/DetalheOcorrenciaScreen";
@@ -13,6 +14,7 @@ type TelaAtual = "lista" | "cadastro" | "detalhe";
 const STORAGE_KEY = "@verdescan_ocorrencias";
 
 export default function App() {
+  const [logado, setLogado] = useState(false);
   const [telaAtual, setTelaAtual] = useState<TelaAtual>("lista");
   const [ocorrencias, setOcorrencias] = useState<Ocorrencia[]>(mockOcorrencias);
   const [ocorrenciaSelecionada, setOcorrenciaSelecionada] =
@@ -82,6 +84,16 @@ export default function App() {
     }
   }
 
+  function sair() {
+    setLogado(false);
+    setTelaAtual("lista");
+    setOcorrenciaSelecionada(null);
+  }
+
+  if (!logado) {
+    return <LoginScreen onLogin={() => setLogado(true)} />;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#064e2f" />
@@ -92,6 +104,7 @@ export default function App() {
           onNovaOcorrencia={() => setTelaAtual("cadastro")}
           onSelecionarOcorrencia={abrirDetalhe}
           onApagarOcorrencia={apagarOcorrencia}
+          onLogout={sair}
         />
       )}
 
